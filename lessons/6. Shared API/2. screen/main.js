@@ -1,9 +1,7 @@
 // Modules
-const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+const electron = require('electron')
+const {app, BrowserWindow} = electron
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -11,8 +9,11 @@ let mainWindow
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
 
+  let primaryDisplay = electron.screen.getPrimaryDisplay()
+
   mainWindow = new BrowserWindow({
-    width: 1000, height: 800,
+    x: primaryDisplay.bounds.x, y: primaryDisplay.bounds.y,
+    width: primaryDisplay.size.width/2, height: primaryDisplay.size.height,
     webPreferences: { nodeIntegration: true }
   })
 

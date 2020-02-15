@@ -6,9 +6,7 @@
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec 'electron .'",
-    "reset": "git reset --hard",
-    "postinstall": "electron-rebuild",
-    "electron-rebuild": "electron-rebuild"
+    "reset": "git reset --hard"
   },
   "repository": "https://github.com/stackacademytv/master-electron",
   "keywords": [
@@ -16,17 +14,13 @@
     "Master Electron",
     "demo"
   ],
-  "author": "Dan Wang",
+  "author": "GitHub, Stackacademytv",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^5.0.0",
-    "electron-rebuild": "^1.10.0",
     "nodemon": "^1.18.9"
   },
   "dependencies": {
-    "bcrypt": "^3.0.8",
-    "colors": "^1.4.0",
-    "electron-window-state": "^5.0.3",
-    "i": "^0.3.6"
+    "electron-window-state": "^5.0.3"
   }
 }

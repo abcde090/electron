@@ -1,9 +1,6 @@
 // Modules
 const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -29,7 +26,15 @@ function createWindow () {
 }
 
 // Electron `app` is ready
-app.on('ready', createWindow)
+app.on('ready', () => {
+
+  console.log(app.getPath('desktop'))
+  console.log(app.getPath('music'))
+  console.log(app.getPath('temp'))
+  console.log(app.getPath('userData'))
+
+  createWindow()
+})
 
 // Quit when all windows are closed - (Not macOS - Darwin)
 app.on('window-all-closed', () => {

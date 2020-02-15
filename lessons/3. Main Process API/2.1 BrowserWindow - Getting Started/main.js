@@ -1,9 +1,6 @@
 // Modules
 const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -13,14 +10,16 @@ function createWindow () {
 
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+    backgroundColor: '#2C92F9'
   })
 
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile('index.html')
+  // mainWindow.loadURL('https://google.com')
 
   // Open DevTools - Remove for PRODUCTION!
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Listen for window being closed
   mainWindow.on('closed',  () => {

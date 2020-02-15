@@ -1,9 +1,6 @@
 // Modules
-const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+const {app, BrowserWindow, dialog} = require('electron')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -21,6 +18,32 @@ function createWindow () {
 
   // Open DevTools - Remove for PRODUCTION!
   mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.on('did-finish-load', () => {
+
+    // dialog.showOpenDialog({
+    //   buttonLabel: 'Select a photo',
+    //   defaultPath: app.getPath('desktop'),
+    //   properties: ['multiSelections', 'createDirectory', 'openFile', 'openDirectory']
+    // }, filepaths => {
+    //   console.log(filepaths)
+    // })
+
+    // dialog.showSaveDialog({}, filename => {
+    //   console.log(filename)
+    // })
+
+    const answers = ['Yes', 'No', 'Maybe']
+
+    dialog.showMessageBox({
+      title: 'Message Box',
+      message: 'Please select an option',
+      detail: 'Message details.',
+      buttons: answers
+    }, response => {
+      console.log(`User selected: ${answers[response]}`)
+    })
+  })
 
   // Listen for window being closed
   mainWindow.on('closed',  () => {

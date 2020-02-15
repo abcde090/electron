@@ -1,15 +1,20 @@
 // Modules
-const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+const {app, BrowserWindow, session} = require('electron')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
+
+  let ses = session.defaultSession
+
+  let getCookies = () => {
+    ses.cookies.get({ name:'cookie1' }, (err, cookies) => {
+      console.log(cookies)
+    })
+  }
 
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
@@ -18,6 +23,22 @@ function createWindow () {
 
   // Load index.html into the new BrowserWindow
   mainWindow.loadFile('index.html')
+  // mainWindow.loadURL('https://github.com')
+
+  ses.cookies.remove('https://myappdomain.com', 'cookie1', err => {
+    getCookies()
+  })
+
+  // let cookie = { url:'https://myappdomain.com', name:'cookie1', value:'electron', expirationDate:1613852855 }
+  //
+  // ses.cookies.set( cookie, err => {
+  //   console.log('cookie1 set')
+  //   getCookies()
+  // })
+
+  // mainWindow.webContents.on('did-finish-load', e => {
+  //   getCookies()
+  // })
 
   // Open DevTools - Remove for PRODUCTION!
   mainWindow.webContents.openDevTools();

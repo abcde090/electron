@@ -1,15 +1,36 @@
 // Modules
-const {app, BrowserWindow} = require('electron')
-const bcrypt = require('bcrypt');
-bcrypt.hash('myPlaintextPassword', 10, function(err, hash) {
-  console.log(hash)
-})
+const {app, BrowserWindow, Tray, Menu} = require('electron')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow, tray
+
+let trayMenu = Menu.buildFromTemplate([
+  { label: 'Item 1' },
+  { role: 'quit' }
+])
+
+function createTray() {
+
+  tray = new Tray('trayTemplate@2x.png')
+  tray.setToolTip('Tray details')
+
+  tray.on('click', e => {
+
+    if (e.shiftKey) {
+      app.quit()
+    } else {
+      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    }
+  })
+
+  tray.setContextMenu(trayMenu)
+}
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
+
+  createTray()
 
   mainWindow = new BrowserWindow({
     width: 1000, height: 800,
